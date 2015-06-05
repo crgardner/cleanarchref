@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+  xsi:schemaLocation=" http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/jaxrs
+http://cxf.apache.org/schemas/jaxrs.xsd">
+
+  <jaxrs:server address="/">
+    <jaxrs:serviceBeans>
+      <ref bean="usersResource" />
+    </jaxrs:serviceBeans>
+  </jaxrs:server>
+  
+  <bean id="userCreationBoundary" class="cleanarch.app.users.NaiveUserCreationApplication" />
+  
+  <bean id="userCreationController" class="cleanarch.ia.api.users.UserCreationController">
+    <constructor-arg ref="userCreationBoundary" />
+  </bean>
+  
+  <bean id="usersResource" class="cleanarch.ia.api.users.UsersResource">
+    <constructor-arg ref="userCreationController" />
+  </bean>
+
+</beans>
