@@ -9,7 +9,7 @@
   </persistence-unit-metadata>
 
   <package>cleanarch.domain.users</package>
-  <entity class="User" access="PROPERTY" metadata-complete="true">
+  <entity class="User" access="FIELD" metadata-complete="true">
     <attributes>
       <id name="id">
         <generated-value strategy="AUTO" />
