@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_1_0.xsd"
+  version="1.0">
+  <persistence-unit-metadata>
+    <xml-mapping-metadata-complete />
+    <persistence-unit-defaults>
+      <cascade-persist />
+    </persistence-unit-defaults>
+  </persistence-unit-metadata>
+
+  <package>cleanarch.domain.users</package>
+  <entity class="User" access="PROPERTY" metadata-complete="true">
+    <attributes>
+      <id name="id">
+        <generated-value strategy="AUTO" />
+      </id>
+    </attributes>
+  </entity>
+</entity-mappings>

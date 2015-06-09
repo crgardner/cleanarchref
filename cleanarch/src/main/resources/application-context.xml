@@ -1,23 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:jaxrs="http://cxf.apache.org/jaxrs"
-  xsi:schemaLocation=" http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans.xsd
-http://cxf.apache.org/jaxrs
-http://cxf.apache.org/schemas/jaxrs.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+                      http://www.springframework.org/schema/beans/spring-beans.xsd
+                      http://cxf.apache.org/jaxrs
+                      http://cxf.apache.org/schemas/jaxrs.xsd
+                      http://www.springframework.org/schema/tx
+                      http://www.springframework.org/schema/tx/spring-tx.xsd
+                      http://www.springframework.org/schema/aop
+                      http://www.springframework.org/schema/aop/spring-aop.xsd">
 
   <jaxrs:server address="/">
     <jaxrs:serviceBeans>
       <ref bean="usersResource" />
     </jaxrs:serviceBeans>
   </jaxrs:server>
-  
-  <bean id="userCreationBoundary" class="cleanarch.app.users.NaiveUserCreationApplication" />
-  
+
+  <bean id="coreEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+  </bean>
+
+  <bean id="commonTxManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    <property name="entityManagerFactory" ref="coreEmf" />
+  </bean>
+
+  <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+  <bean id="jpaUserRoster" class="cleanarch.db.jpa.users.JpaUserRoster" />
+
+  <bean id="userCreationBoundary" class="cleanarch.app.users.UserCreationApplication">
+    <constructor-arg ref="jpaUserRoster" />
+  </bean>
+
+  <aop:config>
+    <aop:pointcut id="applicationMethods" expression="execution(* cleanarch.app.users.UserCreationApplication.*(..))" />
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="applicationMethods" />
+  </aop:config>
+
+  <tx:advice id="txAdvice" transaction-manager="commonTxManager">
+    <tx:attributes>
+      <tx:method name="*" />
+    </tx:attributes>
+  </tx:advice>
+
+
   <bean id="userCreationController" class="cleanarch.ia.api.users.UserCreationController">
     <constructor-arg ref="userCreationBoundary" />
   </bean>
-  
+
   <bean id="usersResource" class="cleanarch.ia.api.users.UsersResource">
     <constructor-arg ref="userCreationController" />
   </bean>
