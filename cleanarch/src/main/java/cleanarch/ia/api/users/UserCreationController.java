@@ -1,7 +1,11 @@
 package cleanarch.ia.api.users;
 
+import java.net.URI;
 import java.util.function.Consumer;
+
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
+
 import cleanarch.appbound.users.*;
 
 public class UserCreationController {
@@ -12,10 +16,10 @@ public class UserCreationController {
         this.userCreationBoundary = userCreationBoundary;
     }
 
-    public Response handle(String userName) {
+    public Response handle(String userName, UriBuilder uriBuilder) {
         UserData userData = createRequest(userName);
         
-        ResponsePresenter presenter = new ResponsePresenter();
+        ResponsePresenter presenter = new ResponsePresenter(uriBuilder);
         userCreationBoundary.handle(userData, presenter);
         
         return presenter.response;
@@ -28,12 +32,17 @@ public class UserCreationController {
     }
     
     class ResponsePresenter implements Consumer<UserData> {
+		private final UriBuilder uriBuilder;
+		private Response response;
 
-        private Response response;
+        ResponsePresenter(UriBuilder uriBuilder) {
+			this.uriBuilder = uriBuilder;
+		}
 
-        @Override
+		@Override
         public void accept(UserData applicationResponse) {
-            response = Response.ok().entity(applicationResponse.getName()).build();
+            URI location = uriBuilder.clone().path(applicationResponse.getId()).build();
+			response = Response.created(location).entity(applicationResponse.getName()).build();
         }
         
     }

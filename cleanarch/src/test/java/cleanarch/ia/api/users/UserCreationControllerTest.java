@@ -3,9 +3,11 @@ package cleanarch.ia.api.users;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.net.URI;
 import java.util.function.Consumer;
 
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -20,6 +22,9 @@ public class UserCreationControllerTest {
     @Mock
     private UserCreationBoundary userCreationBoundary;
     
+    @Mock
+    private UriBuilder uriBuilder;
+    
     private UserCreationController controller;
     private String name;
     private Response response;
@@ -32,10 +37,13 @@ public class UserCreationControllerTest {
     
     @Test
     @SuppressWarnings("unchecked")
-    public void initiatesUserCreation() {
+    public void initiatesUserCreation() throws Exception {
         doAnswer(byCallingConsumer()).when(userCreationBoundary).handle(any(UserData.class), any(Consumer.class));
+        when(uriBuilder.clone()).thenReturn(uriBuilder);
+        when(uriBuilder.path(any())).thenReturn(uriBuilder);
+        when(uriBuilder.build()).thenReturn(new URI("http:/mysite.com"));
         
-        response = controller.handle(name);
+        response = controller.handle(name, uriBuilder);
         
         assertThat(response.getEntity()).isEqualTo(name);
     }

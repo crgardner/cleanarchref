@@ -19,7 +19,7 @@ public class UsersResource {
     
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public Response post(String name) {
-        return creationController.handle(name);
+    public Response post(String name, @Context UriInfo uriInfo) {
+        return creationController.handle(name, uriInfo.getAbsolutePathBuilder());
     }
 }
