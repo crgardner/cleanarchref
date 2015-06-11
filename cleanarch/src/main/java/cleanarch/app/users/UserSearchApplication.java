@@ -15,8 +15,8 @@ public class UserSearchApplication implements UserSearchBoundary {
     }
 
     @Override
-    public void handle(UserSearchRequest searchRequest, Consumer<Optional<UserData>> consumer) {
-        consumer.accept(userDataMatching(searchRequest));
+    public void handle(UserSearchRequest searchRequest, Consumer<Optional<UserData>> receiver) {
+        receiver.accept(userDataMatching(searchRequest));
     }
 
     private Optional<UserData> userDataMatching(UserSearchRequest userSearchRequest) {

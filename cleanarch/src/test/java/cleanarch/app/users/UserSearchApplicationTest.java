@@ -34,8 +34,8 @@ public class UserSearchApplicationTest {
         when(userRoster.findById("123")).thenReturn(Optional.of(user));
         expectingUserDataWithName("name");
 
-        userSearchApplication.handle(new UserSearchRequest("123"), user -> {
-            actualUserData = user;
+        userSearchApplication.handle(new UserSearchRequest("123"), maybeUserData -> {
+            actualUserData = maybeUserData;
         });
 
         assertThat(actualUserData.get()).isEqualTo(expectedUserData);
