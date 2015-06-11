@@ -6,7 +6,7 @@ import javax.ws.rs.core.*;
 @Path("/v1/users")
 public class UsersResource {
     private final UserCreationController creationController;
-    
+
     public UsersResource(UserCreationController creationController) {
         this.creationController = creationController;
     }
@@ -16,7 +16,7 @@ public class UsersResource {
     public String get() {
         return "UsersResource";
     }
-    
+
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public Response post(String name, @Context UriInfo uriInfo) {

@@ -7,10 +7,10 @@ public class User {
     public User(String name) {
         this.name = name;
     }
-    
+
     public User() {
     }
-    
+
     public String getId() {
         return id;
     }

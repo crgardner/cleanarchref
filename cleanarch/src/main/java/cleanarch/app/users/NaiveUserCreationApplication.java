@@ -10,7 +10,7 @@ public class NaiveUserCreationApplication implements UserCreationBoundary {
     public void handle(UserData userData, Consumer<UserData> receiver) {
         UserData createdUserData = new UserData();
         createdUserData.setName(userData.getName());
-        
+
         receiver.accept(createdUserData);
     }
 

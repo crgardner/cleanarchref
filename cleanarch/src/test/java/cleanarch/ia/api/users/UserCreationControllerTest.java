@@ -21,10 +21,10 @@ import cleanarch.appbound.users.*;
 public class UserCreationControllerTest {
     @Mock
     private UserCreationBoundary userCreationBoundary;
-    
+
     @Mock
     private UriBuilder uriBuilder;
-    
+
     private UserCreationController controller;
     private String name;
     private Response response;
@@ -34,7 +34,7 @@ public class UserCreationControllerTest {
         controller = new UserCreationController(userCreationBoundary);
         name = "John Doe";
     }
-    
+
     @Test
     @SuppressWarnings("unchecked")
     public void initiatesUserCreation() throws Exception {
@@ -42,9 +42,9 @@ public class UserCreationControllerTest {
         when(uriBuilder.clone()).thenReturn(uriBuilder);
         when(uriBuilder.path(any())).thenReturn(uriBuilder);
         when(uriBuilder.build()).thenReturn(new URI("http:/mysite.com"));
-        
+
         response = controller.handle(name, uriBuilder);
-        
+
         assertThat(response.getEntity()).isEqualTo(name);
     }
 

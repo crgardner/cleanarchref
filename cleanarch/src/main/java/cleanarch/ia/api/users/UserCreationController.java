@@ -18,10 +18,10 @@ public class UserCreationController {
 
     public Response handle(String userName, UriBuilder uriBuilder) {
         UserData userData = createRequest(userName);
-        
+
         ResponsePresenter presenter = new ResponsePresenter(uriBuilder);
         userCreationBoundary.handle(userData, presenter);
-        
+
         return presenter.response;
     }
 
@@ -30,21 +30,21 @@ public class UserCreationController {
         userData.setName(userName);
         return userData;
     }
-    
+
     class ResponsePresenter implements Consumer<UserData> {
-		private final UriBuilder uriBuilder;
-		private Response response;
+        private final UriBuilder uriBuilder;
+        private Response response;
 
         ResponsePresenter(UriBuilder uriBuilder) {
-			this.uriBuilder = uriBuilder;
-		}
+            this.uriBuilder = uriBuilder;
+        }
 
-		@Override
+        @Override
         public void accept(UserData applicationResponse) {
             URI location = uriBuilder.clone().path(applicationResponse.getId()).build();
-			response = Response.created(location).entity(applicationResponse.getName()).build();
+            response = Response.created(location).entity(applicationResponse.getName()).build();
         }
-        
+
     }
 
 }
