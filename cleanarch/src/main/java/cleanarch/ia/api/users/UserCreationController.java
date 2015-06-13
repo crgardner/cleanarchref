@@ -1,13 +1,13 @@
 package cleanarch.ia.api.users;
 
 import java.net.URI;
-import java.util.function.Consumer;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.*;
+import javax.ws.rs.core.*;
 
 import cleanarch.appbound.users.*;
 
+@Path("/v1/users")
 public class UserCreationController {
 
     private final UserCreationBoundary userCreationBoundary;
@@ -16,35 +16,25 @@ public class UserCreationController {
         this.userCreationBoundary = userCreationBoundary;
     }
 
-    public Response handle(String userName, UriBuilder uriBuilder) {
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response handle(String userName, @Context UriInfo uriInfo) {
+        ResponseHolder holder = new ResponseHolder();
+        
         UserData userData = createRequest(userName);
 
-        ResponsePresenter presenter = new ResponsePresenter(uriBuilder);
-        userCreationBoundary.handle(userData, presenter);
+        userCreationBoundary.handle(userData, createdUser -> {
+            URI location = uriInfo.getAbsolutePathBuilder().clone().path(createdUser.getId()).build();
+            holder.response = Response.created(location).entity(createdUser.getName()).build();
+        });
 
-        return presenter.response;
+        return holder.response;
     }
 
     private UserData createRequest(String userName) {
         UserData userData = new UserData();
         userData.setName(userName);
         return userData;
-    }
-
-    class ResponsePresenter implements Consumer<UserData> {
-        private final UriBuilder uriBuilder;
-        private Response response;
-
-        ResponsePresenter(UriBuilder uriBuilder) {
-            this.uriBuilder = uriBuilder;
-        }
-
-        @Override
-        public void accept(UserData applicationResponse) {
-            URI location = uriBuilder.clone().path(applicationResponse.getId()).build();
-            response = Response.created(location).entity(applicationResponse.getName()).build();
-        }
-
     }
 
 }

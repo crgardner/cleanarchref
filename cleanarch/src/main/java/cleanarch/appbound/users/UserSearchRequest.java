@@ -1,5 +1,6 @@
 package cleanarch.appbound.users;
 
+
 public class UserSearchRequest {
     private final String userId;
 
@@ -10,4 +11,5 @@ public class UserSearchRequest {
     public String getUserId() {
         return userId;
     }
+
 }

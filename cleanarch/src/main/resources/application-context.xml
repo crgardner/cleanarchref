@@ -12,7 +12,7 @@
 
   <jaxrs:server address="/">
     <jaxrs:serviceBeans>
-      <ref bean="usersResource" />
+      <ref bean="userCreationController" />
     </jaxrs:serviceBeans>
   </jaxrs:server>
 
@@ -45,10 +45,6 @@
 
   <bean id="userCreationController" class="cleanarch.ia.api.users.UserCreationController">
     <constructor-arg ref="userCreationBoundary" />
-  </bean>
-
-  <bean id="usersResource" class="cleanarch.ia.api.users.UsersResource">
-    <constructor-arg ref="userCreationController" />
   </bean>
 
 </beans>

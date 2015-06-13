@@ -38,7 +38,7 @@ public class UserSearchApplicationTest {
             actualUserData = maybeUserData;
         });
 
-        assertThat(actualUserData.get()).isEqualTo(expectedUserData);
+        assertThat(actualUserData.get()).isEqualToComparingFieldByField(expectedUserData);
     }
 
     @Test

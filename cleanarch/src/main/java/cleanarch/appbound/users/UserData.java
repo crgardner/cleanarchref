@@ -1,8 +1,5 @@
 package cleanarch.appbound.users;
 
-import java.util.Objects;
-
-import org.apache.commons.lang3.builder.EqualsBuilder;
 
 public class UserData {
     private String id;
@@ -22,16 +19,6 @@ public class UserData {
 
     public String getName() {
         return name;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
     }
 
 }
