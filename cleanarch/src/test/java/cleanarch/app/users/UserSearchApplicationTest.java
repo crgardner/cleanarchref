@@ -17,6 +17,9 @@ import cleanarch.domain.users.*;
 public class UserSearchApplicationTest {
     @Mock
     private UserRoster userRoster;
+    
+    @Mock
+    private UserDataFactory userDataFactory;
 
     private UserSearchBoundary userSearchApplication;
     private User user;
@@ -25,7 +28,7 @@ public class UserSearchApplicationTest {
 
     @Before
     public void setUp() {
-        userSearchApplication = new UserSearchApplication(userRoster);
+        userSearchApplication = new UserSearchApplication(userRoster, userDataFactory);
     }
 
     @Test
@@ -33,6 +36,7 @@ public class UserSearchApplicationTest {
         havingAUserWithName("name");
         when(userRoster.findById("123")).thenReturn(Optional.of(user));
         expectingUserDataWithName("name");
+        when(userDataFactory.createFrom(user)).thenReturn(expectedUserData);
 
         userSearchApplication.handle(new UserSearchRequest("123"), maybeUserData -> {
             actualUserData = maybeUserData;

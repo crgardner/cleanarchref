@@ -7,28 +7,20 @@ import cleanarch.domain.users.User;
 import cleanarch.domain.users.UserRoster;
 
 public class UserCreationApplication implements UserCreationBoundary {
-    private UserRoster userRoster;
+    private final UserRoster userRoster;
+    private final UserDataFactory userDataFactory;
 
-    public UserCreationApplication(UserRoster userRoster) {
+    public UserCreationApplication(UserRoster userRoster, UserDataFactory userDataFactory) {
         this.userRoster = userRoster;
+        this.userDataFactory = userDataFactory;
     }
 
     @Override
     public void handle(UserData userData, Consumer<UserData> receiver) {
         User user = createUserFrom(userData);
-
         userRoster.add(user);
 
-        UserData createdUserData = createResponseFrom(user);
-
-        receiver.accept(createdUserData);
-    }
-
-    private UserData createResponseFrom(User user) {
-        UserData createdUserData = new UserData();
-        createdUserData.setName(user.getName());
-        createdUserData.setId(user.getId());
-        return createdUserData;
+        receiver.accept(userDataFactory.createFrom(user));
     }
 
     private User createUserFrom(UserData userData) {

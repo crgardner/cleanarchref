@@ -9,9 +9,11 @@ import cleanarch.domain.users.*;
 public class UserSearchApplication implements UserSearchBoundary {
 
     private final UserRoster userRoster;
+    private final UserDataFactory userDataFactory;
 
-    public UserSearchApplication(UserRoster userRoster) {
+    public UserSearchApplication(UserRoster userRoster, UserDataFactory userDataFactory) {
         this.userRoster = userRoster;
+        this.userDataFactory = userDataFactory;
     }
 
     @Override
@@ -24,10 +26,7 @@ public class UserSearchApplication implements UserSearchBoundary {
     }
 
     private UserData dataFrom(User user) {
-        UserData userData = new UserData();
-        userData.setId(user.getId());
-        userData.setName(user.getName());
-        return userData;
+        return userDataFactory.createFrom(user);
     }
 
 }
