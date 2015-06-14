@@ -15,7 +15,13 @@
       <ref bean="userCreationController" />
       <ref bean="usersListController" />
     </jaxrs:serviceBeans>
+
+    <jaxrs:providers>
+      <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+    </jaxrs:providers>
+    
   </jaxrs:server>
+
 
   <bean id="coreEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
   </bean>
@@ -33,7 +39,7 @@
     <constructor-arg ref="jpaUserRoster" />
     <constructor-arg ref="userDataFactory" />
   </bean>
-  
+
   <bean id="userSearchBoundary" class="cleanarch.app.users.UserSearchApplication">
     <constructor-arg ref="jpaUserRoster" />
     <constructor-arg ref="userDataFactory" />

@@ -17,14 +17,15 @@ public class UsersListController {
     }
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response handle(@PathParam(value = "id") String id) {
         UserSearchRequest userSearchRequest = new UserSearchRequest(id);
         ResponseHolder responseHolder = new ResponseHolder();
 
         userSearchBoundary.handle(userSearchRequest, possibleUser -> {
-            responseHolder.response = (possibleUser.isPresent()) ? ok().entity(possibleUser.get().getName()).build()
-                                                                 : status(Status.NOT_FOUND).build();
+            ResponseBuilder builder = (possibleUser.isPresent()) ? ok().entity(possibleUser.get())
+                                                                 : status(Status.NOT_FOUND);
+            responseHolder.response = builder.build();
         });
         return responseHolder.response;
     }

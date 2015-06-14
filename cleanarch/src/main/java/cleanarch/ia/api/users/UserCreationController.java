@@ -17,7 +17,7 @@ public class UserCreationController {
     }
 
     @POST
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response handle(String userName, @Context UriInfo uriInfo) {
         ResponseHolder holder = new ResponseHolder();
         
@@ -25,7 +25,7 @@ public class UserCreationController {
 
         userCreationBoundary.handle(userData, createdUser -> {
             URI location = uriInfo.getAbsolutePathBuilder().clone().path(createdUser.getId()).build();
-            holder.response = Response.created(location).entity(createdUser.getName()).build();
+            holder.response = Response.created(location).entity(createdUser).build();
         });
 
         return holder.response;

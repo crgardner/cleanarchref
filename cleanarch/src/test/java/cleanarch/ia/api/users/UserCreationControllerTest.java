@@ -31,9 +31,7 @@ public class UserCreationControllerTest {
     
     private UserCreationController userCreationController;
     private UserData userData;
-
     private Response response;
-    
     
     @Before
     public void setUp() {
@@ -54,14 +52,13 @@ public class UserCreationControllerTest {
         
         response = userCreationController.handle("user", uriInfo);
         
-        assertThat(response.getEntity()).isEqualTo("user");
         assertThat(response.getStatus()).isEqualTo(Status.CREATED.getStatusCode());
+        assertThat(response.getEntity()).isEqualToComparingFieldByField(userData);
     }
-    
 
     @SuppressWarnings("unchecked")
     private Answer<?> byCallingReceiver() {
-        return (invocation) -> {
+        return invocation -> {
             invocation.getArgumentAt(1, Consumer.class).accept(userData);
             return null;
         };
