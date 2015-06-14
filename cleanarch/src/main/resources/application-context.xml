@@ -13,6 +13,7 @@
   <jaxrs:server address="/">
     <jaxrs:serviceBeans>
       <ref bean="userCreationController" />
+      <ref bean="usersListController" />
     </jaxrs:serviceBeans>
   </jaxrs:server>
 
@@ -32,6 +33,11 @@
     <constructor-arg ref="jpaUserRoster" />
     <constructor-arg ref="userDataFactory" />
   </bean>
+  
+  <bean id="userSearchBoundary" class="cleanarch.app.users.UserSearchApplication">
+    <constructor-arg ref="jpaUserRoster" />
+    <constructor-arg ref="userDataFactory" />
+  </bean>
 
   <aop:config>
     <aop:pointcut id="applicationMethods" expression="execution(* cleanarch.app.users.*Application.*(..))" />
@@ -46,6 +52,10 @@
 
   <bean id="userCreationController" class="cleanarch.ia.api.users.UserCreationController">
     <constructor-arg ref="userCreationBoundary" />
+  </bean>
+
+  <bean id="usersListController" class="cleanarch.ia.api.users.UsersListController">
+    <constructor-arg ref="userSearchBoundary" />
   </bean>
 
 </beans>

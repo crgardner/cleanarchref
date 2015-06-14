@@ -25,7 +25,7 @@ public class JpaUserRoster implements UserRoster {
 
     @Override
     public Optional<User> findById(String id) {
-        return null;
+        return Optional.ofNullable(entityManager.find(User.class, id));
     }
 
 }
