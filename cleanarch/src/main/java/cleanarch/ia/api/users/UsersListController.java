@@ -8,7 +8,7 @@ import javax.ws.rs.core.Response.Status;
 
 import cleanarch.appbound.users.*;
 
-@Path("/v1/users/{id}")
+@Path("/v1/users")
 public class UsersListController {
     private final UserSearchBoundary userSearchBoundary;
 
@@ -18,7 +18,8 @@ public class UsersListController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response handle(@PathParam(value = "id") String id) {
+    @Path("{id}")
+    public Response handle(@PathParam("id") String id) {
         UserSearchRequest userSearchRequest = new UserSearchRequest(id);
         ResponseHolder responseHolder = new ResponseHolder();
 
