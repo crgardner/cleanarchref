@@ -23,8 +23,7 @@
   </jaxrs:server>
 
 
-  <bean id="coreEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-  </bean>
+  <bean id="coreEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" />
 
   <bean id="commonTxManager" class="org.springframework.orm.jpa.JpaTransactionManager">
     <property name="entityManagerFactory" ref="coreEmf" />
@@ -34,9 +33,16 @@
 
   <bean id="jpaUserRoster" class="cleanarch.db.jpa.users.JpaUserRoster" />
   <bean id="userDataFactory" class="cleanarch.app.users.MappingUserDataFactory" />
+  
+  <bean id="passwordPolicy" class="cleanarch.domain.users.NaivePasswordPolicy" />
+  
+  <bean id="userFactory" class="cleanarch.app.users.MappingUserFactory">
+    <constructor-arg ref="passwordPolicy" />
+  </bean> 
 
   <bean id="userCreationBoundary" class="cleanarch.app.users.UserCreationApplication">
     <constructor-arg ref="jpaUserRoster" />
+    <constructor-arg ref="userFactory" />
     <constructor-arg ref="userDataFactory" />
   </bean>
 

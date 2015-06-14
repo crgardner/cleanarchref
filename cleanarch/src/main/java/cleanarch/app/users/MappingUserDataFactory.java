@@ -10,6 +10,7 @@ class MappingUserDataFactory implements UserDataFactory {
         UserData userData = new UserData();
         userData.setId(user.getId());
         userData.setName(user.getName());
+        userData.setPassword(user.getPassword());
         return userData;
     }
 

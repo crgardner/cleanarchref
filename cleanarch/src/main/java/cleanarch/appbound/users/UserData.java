@@ -4,6 +4,7 @@ package cleanarch.appbound.users;
 public class UserData {
     private String id;
     private String name;
+    private String password;
 
     public void setId(String id) {
         this.id = id;
@@ -19,6 +20,14 @@ public class UserData {
 
     public String getName() {
         return name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    public String getPassword() {
+        return password;
     }
 
 }

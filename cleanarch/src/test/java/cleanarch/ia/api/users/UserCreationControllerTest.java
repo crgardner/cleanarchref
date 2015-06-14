@@ -50,10 +50,10 @@ public class UserCreationControllerTest {
         when(uriBuilder.path(any())).thenReturn(uriBuilder);
         when(uriBuilder.build()).thenReturn(new URI("http:/mysite.com/users"));
         
-        response = userCreationController.handle("user", uriInfo);
+        response = userCreationController.handle(userData, uriInfo);
         
         assertThat(response.getStatus()).isEqualTo(Status.CREATED.getStatusCode());
-        assertThat(response.getEntity()).isEqualToComparingFieldByField(userData);
+        assertThat(response.getEntity()).isEqualTo(userData);
     }
 
     @SuppressWarnings("unchecked")

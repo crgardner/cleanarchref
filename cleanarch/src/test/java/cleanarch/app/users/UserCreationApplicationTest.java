@@ -3,12 +3,10 @@ package cleanarch.app.users;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
 
 import cleanarch.appbound.users.*;
 import cleanarch.domain.users.*;
@@ -20,6 +18,9 @@ public class UserCreationApplicationTest {
     private UserRoster userRoster;
     
     @Mock
+    private UserFactory userFactory;
+    
+    @Mock
     private UserDataFactory userDataFactory;
 
     private UserData userData;
@@ -29,7 +30,7 @@ public class UserCreationApplicationTest {
     
     @Before
     public void setUp() {
-        userCreationApplication = new UserCreationApplication(userRoster, userDataFactory);
+        userCreationApplication = new UserCreationApplication(userRoster, userFactory, userDataFactory);
     }
     
     @Test
@@ -38,6 +39,7 @@ public class UserCreationApplicationTest {
         userData.setName("user");
         user = new User("user");
         
+        when(userFactory.createFrom(userData)).thenReturn(user);
         when(userDataFactory.createFrom(refEq(user))).thenReturn(userData);
 
         userCreationApplication.handle(userData, createdUserData -> {

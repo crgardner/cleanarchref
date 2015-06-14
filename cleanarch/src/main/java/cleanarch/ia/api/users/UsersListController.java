@@ -2,6 +2,8 @@ package cleanarch.ia.api.users;
 
 import static javax.ws.rs.core.Response.*;
 
+import java.util.Arrays;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import javax.ws.rs.core.Response.Status;
@@ -30,5 +32,10 @@ public class UsersListController {
         });
         return responseHolder.response;
     }
-
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response handle() {
+        return Response.ok().entity(Arrays.asList(new UserData())).build();
+    }
 }

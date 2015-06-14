@@ -20,7 +20,7 @@ public class JpaUserRoster implements UserRoster {
 
     @Override
     public List<User> findAll() {
-        return null;
+        return entityManager.createQuery("select u from User u", User.class).getResultList();
     }
 
     @Override

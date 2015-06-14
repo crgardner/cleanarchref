@@ -17,12 +17,11 @@ public class UserCreationController {
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response handle(String userName, @Context UriInfo uriInfo) {
+    public Response handle(UserData userData, @Context UriInfo uriInfo) {
         ResponseHolder holder = new ResponseHolder();
         
-        UserData userData = createRequest(userName);
-
         userCreationBoundary.handle(userData, createdUser -> {
             URI location = uriInfo.getAbsolutePathBuilder().clone().path(createdUser.getId()).build();
             holder.response = Response.created(location).entity(createdUser).build();
@@ -30,11 +29,4 @@ public class UserCreationController {
 
         return holder.response;
     }
-
-    private UserData createRequest(String userName) {
-        UserData userData = new UserData();
-        userData.setName(userName);
-        return userData;
-    }
-
 }
