@@ -34,7 +34,7 @@
   </bean>
 
   <aop:config>
-    <aop:pointcut id="applicationMethods" expression="execution(* cleanarch.app.users.UserCreationApplication.*(..))" />
+    <aop:pointcut id="applicationMethods" expression="execution(* cleanarch.app.users.*Application.*(..))" />
     <aop:advisor advice-ref="txAdvice" pointcut-ref="applicationMethods" />
   </aop:config>
 
@@ -43,7 +43,6 @@
       <tx:method name="*" />
     </tx:attributes>
   </tx:advice>
-
 
   <bean id="userCreationController" class="cleanarch.ia.api.users.UserCreationController">
     <constructor-arg ref="userCreationBoundary" />
