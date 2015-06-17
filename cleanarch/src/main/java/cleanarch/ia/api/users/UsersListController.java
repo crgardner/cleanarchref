@@ -9,6 +9,7 @@ import javax.ws.rs.core.*;
 import javax.ws.rs.core.Response.Status;
 
 import cleanarch.appbound.users.*;
+import cleanarch.ia.api.response.ResponseHolder;
 
 @Path("/v1/users")
 public class UsersListController {

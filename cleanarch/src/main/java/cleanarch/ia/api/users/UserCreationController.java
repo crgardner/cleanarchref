@@ -6,6 +6,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
 import cleanarch.appbound.users.*;
+import cleanarch.ia.api.response.ResponseHolder;
 
 @Path("/v1/users")
 public class UserCreationController {

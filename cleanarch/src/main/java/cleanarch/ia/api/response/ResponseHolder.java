@@ -1,4 +1,4 @@
-package cleanarch.ia.api.users;
+package cleanarch.ia.api.response;
 
 import javax.ws.rs.core.Response;
 
