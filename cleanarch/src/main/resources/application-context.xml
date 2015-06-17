@@ -18,10 +18,15 @@
 
     <jaxrs:providers>
       <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+      <bean id="applicationExceptionMapper" class="cleanarch.ia.api.exception.ApplicationExceptionMapper">
+        <constructor-arg ref="messageCatalog" />
+      </bean>
     </jaxrs:providers>
-    
   </jaxrs:server>
 
+  <bean id="messageCatalog" class="cleanarch.common.message.ResourceBundleMessageCatalog">
+    <constructor-arg value="MessageCatalog" />
+  </bean>
 
   <bean id="coreEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" />
 
@@ -33,12 +38,12 @@
 
   <bean id="jpaUserRoster" class="cleanarch.db.jpa.users.JpaUserRoster" />
   <bean id="userDataFactory" class="cleanarch.app.users.MappingUserDataFactory" />
-  
+
   <bean id="passwordPolicy" class="cleanarch.domain.users.NaivePasswordPolicy" />
-  
+
   <bean id="userFactory" class="cleanarch.app.users.MappingUserFactory">
     <constructor-arg ref="passwordPolicy" />
-  </bean> 
+  </bean>
 
   <bean id="userCreationBoundary" class="cleanarch.app.users.UserCreationApplication">
     <constructor-arg ref="jpaUserRoster" />
