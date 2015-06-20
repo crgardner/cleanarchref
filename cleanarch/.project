@@ -5,6 +5,7 @@
 	<projects>
 		<project>ca-common</project>
 		<project>ca-domain</project>
+		<project>ca-appbound</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
