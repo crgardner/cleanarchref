@@ -3,6 +3,7 @@
 	<name>cleanarch</name>
 	<comment></comment>
 	<projects>
+		<project>ca-common</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
