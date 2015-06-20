@@ -47,7 +47,7 @@ public class UserCreationControllerTest {
         doAnswer(byCallingReceiver()).when(userCreationBoundary).handle(refEq(userData), any(Consumer.class));
         when(uriInfo.getAbsolutePathBuilder()).thenReturn(uriBuilder);
         when(uriBuilder.clone()).thenReturn(uriBuilder);
-        when(uriBuilder.path(any())).thenReturn(uriBuilder);
+        when(uriBuilder.path(anyString())).thenReturn(uriBuilder);
         when(uriBuilder.build()).thenReturn(new URI("http:/mysite.com/users"));
         
         response = userCreationController.handle(userData, uriInfo);
