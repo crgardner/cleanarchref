@@ -1,32 +1,21 @@
 apply plugin: 'java'
-apply plugin: 'war'
 
 sourceCompatibility = 1.8
 project.buildDir = 'target'
 
-task wrapper(type: Wrapper) { gradleVersion = '2.4' }
 
 repositories { mavenCentral() }
 
 dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
-    
-    compile group: 'org.springframework', name: 'spring-core', version: '4.1.6.RELEASE'
-    compile group: 'org.springframework', name: 'spring-web', version: '4.1.6.RELEASE'
     compile group: 'org.springframework', name: 'spring-orm', version: '4.1.6.RELEASE'
     compile group: 'org.springframework', name: 'spring-aspects', version: '4.1.6.RELEASE'
     
     compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '4.3.10.Final'
-    compile group: 'com.h2database', name: 'h2', version: '1.4.187'    
+    compile group: 'com.h2database', name: 'h2', version: '1.4.187'
     
-    compile group: 'org.apache.cxf', name: 'cxf-rt-frontend-jaxrs', version: '3.1.0'
-    compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.5.4'
-
     compile project(':ca-common')
     compile project(':ca-domain')
-    compile project(':ca-appbound')
-    compile project(':ca-app')
-    compile project(':ca-persist')
     
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '1.10.19'
