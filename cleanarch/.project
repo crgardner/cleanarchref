@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>ca-common</project>
+		<project>ca-domain</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

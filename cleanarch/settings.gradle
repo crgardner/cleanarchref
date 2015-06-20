@@ -1,1 +1,2 @@
 includeFlat 'ca-common'
+includeFlat 'ca-domain'

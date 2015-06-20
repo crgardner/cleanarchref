@@ -1,5 +1,5 @@
 #org.springsource.ide.eclipse.gradle.core.preferences.GradleProjectPreferences
-#Sat Jun 20 15:02:42 EDT 2015
-build.family.org.gradle.tooling.model.eclipse.HierarchicalEclipseProject=;../ca-common;
+#Sat Jun 20 15:21:00 EDT 2015
+build.family.org.gradle.tooling.model.eclipse.HierarchicalEclipseProject=;../ca-common;../ca-domain;
 org.springsource.ide.eclipse.gradle.linkedresources=
 org.springsource.ide.eclipse.gradle.rootprojectloc=
