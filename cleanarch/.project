@@ -8,6 +8,7 @@
 		<project>ca-appbound</project>
 		<project>ca-app</project>
 		<project>ca-persist</project>
+		<project>ca-webapi</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
