@@ -6,6 +6,7 @@
 		<project>ca-common</project>
 		<project>ca-domain</project>
 		<project>ca-appbound</project>
+		<project>ca-app</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

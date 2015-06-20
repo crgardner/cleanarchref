@@ -1,3 +1,4 @@
 includeFlat 'ca-common'
 includeFlat 'ca-domain'
 includeFlat 'ca-appbound'
+includeFlat 'ca-app'
