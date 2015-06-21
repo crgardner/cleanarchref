@@ -1,12 +1,23 @@
-apply plugin: 'java'
 apply plugin: 'war'
 
-sourceCompatibility = 1.8
-project.buildDir = 'target'
+allprojects {
+    apply plugin: 'java'
+    sourceCompatibility = 1.8
+    project.buildDir = 'target'
+    repositories { mavenCentral() }
+}
+
+subprojects {
+    dependencies {
+        
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+        testCompile group: 'org.mockito', name: 'mockito-core', version: '1.10.19'
+        testCompile group: 'org.assertj', name: 'assertj-core', version: '3.0.0'
+    }
+}
 
 task wrapper(type: Wrapper) { gradleVersion = '2.4' }
 
-repositories { mavenCentral() }
 
 dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
@@ -29,7 +40,5 @@ dependencies {
     compile project(':ca-persist')
     compile project(':ca-webapi')
     
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    testCompile group: 'org.mockito', name: 'mockito-core', version: '1.10.19'
-    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.0.0'
+
 }
