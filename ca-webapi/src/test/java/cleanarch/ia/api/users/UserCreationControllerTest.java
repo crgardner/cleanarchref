@@ -44,7 +44,7 @@ public class UserCreationControllerTest {
     @Test
     @SuppressWarnings("unchecked")
     public void handlesCreationRequests() throws Exception {
-        doAnswer(byCallingReceiver()).when(userCreationBoundary).handle(refEq(userData), any(Consumer.class));
+        doAnswer(byProvidingUserData()).when(userCreationBoundary).handle(refEq(userData), any(Consumer.class));
         when(uriInfo.getAbsolutePathBuilder()).thenReturn(uriBuilder);
         when(uriBuilder.clone()).thenReturn(uriBuilder);
         when(uriBuilder.path(anyString())).thenReturn(uriBuilder);
@@ -57,7 +57,7 @@ public class UserCreationControllerTest {
     }
 
     @SuppressWarnings("unchecked")
-    private Answer<?> byCallingReceiver() {
+    private Answer<?> byProvidingUserData() {
         return invocation -> {
             invocation.getArgumentAt(1, Consumer.class).accept(userData);
             return null;

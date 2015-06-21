@@ -12,5 +12,4 @@ public class NaivePasswordPolicy implements PasswordPolicy {
             throw new InvalidException(UserMessageKey.INVALID_PASSWORD, "Invalid password found.");
         }
     }
-
 }

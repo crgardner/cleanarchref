@@ -1,14 +1,19 @@
 package cleanarch.ia.api.users;
 
-import static javax.ws.rs.core.Response.*;
+import static javax.ws.rs.core.Response.ok;
+import static javax.ws.rs.core.Response.status;
 
-import java.util.Arrays;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
-import cleanarch.appbound.users.*;
+import cleanarch.appbound.users.UserSearchBoundary;
+import cleanarch.appbound.users.UserSearchRequest;
 import cleanarch.ia.api.response.ResponseHolder;
 
 @Path("/v1/users")
@@ -32,11 +37,5 @@ public class UsersListController {
             responseHolder.response = builder.build();
         });
         return responseHolder.response;
-    }
-    
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response handle() {
-        return Response.ok().entity(Arrays.asList(new UserData())).build();
     }
 }
