@@ -3,12 +3,6 @@
 	<name>ca-main</name>
 	<comment></comment>
 	<projects>
-		<project>ca-common</project>
-		<project>ca-domain</project>
-		<project>ca-appbound</project>
-		<project>ca-app</project>
-		<project>ca-persist</project>
-		<project>ca-webapi</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
