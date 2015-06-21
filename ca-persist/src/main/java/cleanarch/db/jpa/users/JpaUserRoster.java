@@ -10,7 +10,6 @@ import cleanarch.domain.users.UserRoster;
 
 public class JpaUserRoster implements UserRoster {
 
-    @PersistenceContext
     private EntityManager entityManager;
 
     @Override
@@ -26,6 +25,11 @@ public class JpaUserRoster implements UserRoster {
     @Override
     public Optional<User> findById(String id) {
         return Optional.ofNullable(entityManager.find(User.class, id));
+    }
+    
+    @PersistenceContext
+    public void set(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
 }
