@@ -1,11 +1,3 @@
-apply plugin: 'java'
-
-sourceCompatibility = 1.8
-project.buildDir = 'target'
-
-
-repositories { mavenCentral() }
-
 dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
     

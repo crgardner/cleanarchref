@@ -1,19 +1,46 @@
 apply plugin: 'war'
 
+
 allprojects {
     apply plugin: 'java'
     sourceCompatibility = 1.8
     project.buildDir = 'target'
     repositories { mavenCentral() }
+
 }
 
 subprojects {
+    sourceSets {
+        integrationTest {
+            java {
+                compileClasspath += main.output + test.output
+                runtimeClasspath += main.output + test.output
+                srcDir file('src/integrationTest/java')
+            }
+            resources.srcDir file('src/integrationTest/resources')
+        }
+    }
+    
+    configurations {
+        integrationTestCompile.extendsFrom testCompile
+        integrationTestRuntime.extendsFrom testRuntime
+    }
+
     dependencies {
-        
+
         testCompile group: 'junit', name: 'junit', version: '4.12'
         testCompile group: 'org.mockito', name: 'mockito-core', version: '1.10.19'
         testCompile group: 'org.assertj', name: 'assertj-core', version: '3.0.0'
+        
+        integrationTestCompile group: 'junit', name: 'junit', version: '4.12'
+        integrationTestCompile group: 'org.assertj', name: 'assertj-core', version: '3.0.0'
     }
+    
+    task integrationTest(type: Test) {
+        testClassesDir = sourceSets.integrationTest.output.classesDir
+        classpath = sourceSets.integrationTest.runtimeClasspath
+    }
+    
 }
 
 task wrapper(type: Wrapper) { gradleVersion = '2.4' }
@@ -21,15 +48,15 @@ task wrapper(type: Wrapper) { gradleVersion = '2.4' }
 
 dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
-    
+
     compile group: 'org.springframework', name: 'spring-core', version: '4.1.6.RELEASE'
     compile group: 'org.springframework', name: 'spring-web', version: '4.1.6.RELEASE'
     compile group: 'org.springframework', name: 'spring-orm', version: '4.1.6.RELEASE'
     compile group: 'org.springframework', name: 'spring-aspects', version: '4.1.6.RELEASE'
-    
+
     compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '4.3.10.Final'
-    compile group: 'com.h2database', name: 'h2', version: '1.4.187'    
-    
+    compile group: 'com.h2database', name: 'h2', version: '1.4.187'
+
     compile group: 'org.apache.cxf', name: 'cxf-rt-frontend-jaxrs', version: '3.1.0'
     compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.5.4'
 
@@ -39,6 +66,4 @@ dependencies {
     compile project(':ca-app')
     compile project(':ca-persist')
     compile project(':ca-webapi')
-    
-
 }

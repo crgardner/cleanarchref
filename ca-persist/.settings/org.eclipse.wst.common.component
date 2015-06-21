@@ -2,5 +2,7 @@
     <wb-module deploy-name="ca-persist">
         <wb-resource deploy-path="/" source-path="/src/main/java"/>
         <wb-resource deploy-path="/" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/" source-path="/src/integrationTest/resources"/>
+        <wb-resource deploy-path="/" source-path="/src/integrationTest/java"/>
     </wb-module>
 </project-modules>
