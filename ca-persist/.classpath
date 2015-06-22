@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" output="target/classes/integrationTest" path="src/integrationTest/resources"/>
 	<classpathentry kind="src" output="target/classes/integrationTest" path="src/integrationTest/java"/>
-	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>

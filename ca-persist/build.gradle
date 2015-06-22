@@ -1,8 +1,4 @@
 dependencies {
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
-    compile group: 'org.springframework', name: 'spring-orm', version: '4.1.6.RELEASE'
-    compile group: 'org.springframework', name: 'spring-aspects', version: '4.1.6.RELEASE'
-    
     compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '4.3.10.Final'
     compile group: 'com.h2database', name: 'h2', version: '1.4.187'
     
